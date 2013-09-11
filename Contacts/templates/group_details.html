@@ -1,0 +1,16 @@
+<html>
+    <head>
+	<title>Groups Details</title>
+    </head>
+    <body>	
+	<h2> Group Name: {{group.name}}</h2>
+	<table>
+	{% for grpdtl in group_details %}
+	   <tr><td>{{forloop.counter}}. &nbsp;</td><td>&nbsp;{{grpdtl.name}}</td></tr>
+	{% empty %}
+	   <tr><td>No Details to Display</td></tr>
+	{% endfor %}
+	</table>
+    </body>
+</html>
+

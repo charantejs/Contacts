@@ -1,0 +1,17 @@
+<html>
+    <head>
+	<title>Delete Group</title>
+    </head>
+
+    <body>
+	<br />
+	<form action="." method="post" enctype="multipart/form-data"> {% csrf_token %}
+	    {% if groupObj or personObj %}
+		    <input type='submit' value='Ok' /> &nbsp; &nbsp;
+		    <input type="button" value="Cancel" onclick="window.close()">
+	    {% else %}
+		No data to delete
+	    {% endif %}
+	</form>
+    </body>
+</html>

@@ -1,0 +1,24 @@
+<html>
+    <head>
+	<title>Groups List</title>
+    </head>
+    <body>
+	<h2> List of Groups </h2>
+	<br />
+	<table>
+	
+	{% for group in groups %}
+	    </tr>
+	    <td>{{forloop.counter}}. </td> <td> {{group.name}} &nbsp; &nbsp;</td>
+	    <td><a href='/phonebook/view-groupdetails/{{group.id}}/'>view</a> &nbsp; &nbsp;
+		<a href='' onclick="window.open('/phonebook/edit-group/{{group.id}}/','targetWindow','scrollbars=yes,resizable=yes,width=400,height=200')">Edit</a> &nbsp; &nbsp;
+		<a href='' onclick="window.open('/phonebook/delete-group/{{group.id}}/','targetWindow','scrollbars=yes,resizable=yes,width=300,height=100')">Delete</a>
+	    <td>
+	    </tr>
+	{% empty %}
+	    <tr><td>No Groups to Display</td></tr>
+	{% endfor %}
+	</table>
+    </body>
+</html>
+

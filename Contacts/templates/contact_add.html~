@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+{% block title %}Add Contact{% endblock %}
+
+{% block script %}
+	<script type="text/javascript">
+            $(document).ready(function() {
+          	$("#contactForm").validationEngine();
+		
+		
+		$("#addphonerow").click(function(){
+			//var types = {{phonetypes}}
+			//alert(types);
+			alert($('#addphonenumber > tr').length)
+			addphone = "<tr id='addphonenumber'><td>Phone Number : </td><td><input type='text' name='phonenumber1' id='id_phonenumber1' /></td> <td><select name='phonetype1'>{% for value in phonetypes %}<option value={{value}}>{{value}}</option>{% endfor %}</select></td><td> Add Row</td></tr>"
+			$('#addphonenumber > tr:last').append(addphone)
+		});
+		
+            });
+    </script>
+{% endblock %}
+
+{% block body %}
+	<h1>Add Contact</h1>
+	<form action="." method="post" id='contactForm' enctype="multipart/form-data"> {% csrf_token %}
+	    <table>
+
+		<tr>
+		    <td>Name : </td>
+		    <td> <input type='text' name='name' id='id_name' class="validate[required]" />
+			<!--input type='hidden' name='created_date' value='{{created_date}}' /-->
+		    </td>
+		</tr>
+
+		<tr>
+		    <td>Organisation : </td>
+		    <td><input type='text' name='organisation' /></td>
+		</tr>
+
+		<tr id='addphonenumber'>
+		    <td>Phone Number : </td>
+		    <td><input type='text' name='phonenumber1' id='id_phonenumber1' /></td>
+		    <td>
+			<select name='phonetype1'>
+			    {% for value in phonetypes %}
+				<option value={{value}}>{{value}}</option>
+			    {% endfor %}
+			</select>
+		    </td> 
+		    <td><input type='button' value='Add' id='addphonerow' /></td>
+		</tr>
+
+		<tr id='addphonenumber'>
+		    <td>Phone Number : </td>
+		    <td><input type='text' name='phonenumber2' id='id_phonenumber2' /></td>
+		    <td>
+			<select name='phonetype2'>
+			    {% for value in phonetypes %}
+				<option value={{value}}>{{value}}</option>
+			    {% endfor %}
+			</select>
+		    </td>
+		    <td><input type='button' value='Add' id='addphonerow' /></td>
+		</tr>
+
+		<tr id='addemail'>
+		    <td>Email : </td>
+		    <td><input type='email' name='email1' /></td>
+		    <td>
+			<select name='typeofemail1'>
+			    {% for value in emailtypes %}
+				<option value={{value}}>{{value}}</option>
+			    {% endfor %}
+			</select>
+		    </td>
+		</tr>
+
+		<tr>
+		    <td>Email : </td>
+		    <td><input type='email' name='email2' /></td>
+		    <td>
+			<select name='typeofemail2'>
+			    {% for value in emailtypes %}
+				<option value={{value}}>{{value}}</option>
+			    {% endfor %}
+			</select>
+		    </td>
+		</tr>
+
+		<tr id='addevent'>
+		    <td>Events : </td>
+		    <td><input type='date' name='dateofevent1' /></td>
+		    <td>
+			<select name='event1'>
+			    {% for value in eventtypes %}
+				<option value={{value}}>{{value}}</option>
+			    {% endfor %}
+			</select>
+		    </td>
+		</tr>
+
+		<tr>
+		    <td>Events : </td>
+		    <td><input type='date' name='dateofevent2' /></td>
+		    <td>
+			<select name='event2'>
+			    {% for value in eventtypes %}
+				<option value={{value}}>{{value}}</option>
+			    {% endfor %}
+			</select>
+		    </td>
+		</tr>
+
+		<tr>
+		    <td>Relation : </td>
+		    <td>{{addPersonForm.relation}} &nbsp; &nbsp; &nbsp;
+			<a href='#' onclick="window.open('/phonebook/add-relationship/','targetWindow','scrollbars=yes,resizable=yes,width=400,height=150')">add relationship<a/></td> 
+		    <td>{{addPersonForm.relation.errors}}</td>
+		</tr>
+		<tr>
+		    <td>Groups : </td>
+		    <td>{{addPersonForm.groups}} &nbsp; &nbsp; &nbsp; 
+			<a href='#' onclick="window.open('/phonebook/add-group/','targetWindow','scrollbars=yes,resizable=yes,width=400,height=150')">add group<a/>&nbsp; &nbsp; &nbsp;
+			<a href='/phonebook/display-groups/' target=_blank>view groups<a/></td> <td>{{addPersonForm.groups.errors}}</td>
+		</tr>
+
+	    </table>
+	    <input type="submit" value="Submit" id="submit" />
+	</form>
+{% endblock %}
+
+<!--html>
+    <head>
+	<title>Add Contact</title>
+    </head>
+    <body>
+	<form action="." method="post" enctype="multipart/form-data"> {% csrf_token %}
+	    <table>
+
+		<tr>
+		    <td>Name : </td>
+		    <td> <input type='text' name='name' value='' /></td>
+		</tr>
+
+		<tr>
+		    <td>Organisation : </td>
+		    <td><input type='text' name='organisation' value='' /></td>
+		</tr>
+
+		<tr>
+		    <td>Address : </td>
+		    <td><input type='text' name='name' value='' /></td>
+		</tr>
+
+		<tr>
+		    <td>Phone Number : </td>
+		    <td><input type='text' name='phonenumber1' value='' /></td>
+		    <td>
+			<select name='phonenumber-type1'>
+			    <!--<option value='---------'>select</option>-->
+			    {% for value in phonetypes %}
+				<option value={{value}}>{{value}}</option>
+			    {% endfor %}
+			</select>
+		    </td>
+		</tr>
+
+		<tr>
+		    <td>Email : </td>
+		    <td><input type='email' name='email1' value='' /></td>
+		    <td>
+			<select name='email-type1'>
+			    <!--<option value='---------'>select</option>-->
+			    {% for value in emailtypes %}
+				<option value={{value}}>{{value}}</option>
+			    {% endfor %}
+			</select>
+		    </td>
+		</tr>
+
+		<tr>
+		    <td>Events : </td>
+		    <td><input type='date' name='event1' value='' /></td>
+		    <td>
+			<select name='event-type1'>
+			    <!--<option value='---------'>select</option>-->
+			    {% for value in eventtypes %}
+				<option value={{value}}>{{value}}</option>
+			    {% endfor %}
+			</select>
+		    </td>
+		</tr>
+
+		<tr>
+		    <td>Relation : </td>
+		    <td>{{addPersonForm.relation}} &nbsp; &nbsp; &nbsp;
+			<a href='' onclick="window.open('/phonebook/add-relationship/','targetWindow','scrollbars=yes,resizable=yes,width=500,height=400')">add relationship<a/></td> 
+		    <td>{{addPersonForm.relation.errors}}</td>
+		</tr>
+		<tr>
+		    <td>Groups : </td>
+		    <td>{{addPersonForm.groups}} &nbsp; &nbsp; &nbsp; 
+			<a href='' onclick="window.open('/phonebook/add-group/','targetWindow','scrollbars=yes,resizable=yes,width=500,height=400')">add group<a/>&nbsp; &nbsp; &nbsp;
+			<a href='/phonebook/display-groups/' target=_blank>view groups<a/></td> <td>{{addPersonForm.groups.errors}}</td>
+		</tr>
+
+
+
+
+		<!--tr>
+		    <td>Name : </td>
+		    <td> {{addPersonForm.name}}</td> <td>{{addPersonForm.name.errors}}</td>
+		</tr>
+		<tr>
+		    <td>Image : </td>
+		    <td>{{addPersonForm.image}}</td> <td>{{addPersonForm.image.errors}}</td>
+		</tr>
+		<tr>
+		    <td>Organisation : </td>
+		    <td>{{addPersonForm.organisation}}</td> <td>{{addPersonForm.image.errors}}</td>
+		</tr>
+		<tr>
+		    <td>Relation : </td>
+		    <td>{{addPersonForm.relation}}</td> <td>{{addPersonForm.relation.errors}}</td>
+		</tr>
+		<tr>
+		    <td>Groups : </td>
+		    <td>{{addPersonForm.groups}}</td> <td>{{addPersonForm.groups.errors}}</td>
+		</tr-->
+
+	    </table>
+	    <input type="submit" value="Submit" />
+	</form>
+    </body>
+</html-->

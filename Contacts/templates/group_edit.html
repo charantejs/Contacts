@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Edit Group{% endblock %}
+
+{% block script %}
+	<script type="text/javascript">
+            $(document).ready(function() {
+          	$("#groupForm").validationEngine();
+            });
+	</script>
+{% endblock %}
+
+
+{% block body %}
+    <h1>Edit Group</h1>
+    <br />
+
+    <form action="." method="post" id="groupForm"> {% csrf_token %}
+	Name : <input type='text' name='groupname' value='{{groupObj.name}}' class="validate[required]" />
+	<input type='hidden' name='groupname-old' value='{{groupObj.name}}' />
+	<input type='hidden' name='created_date' value='{{groupObj.created_date}}' />
+	<input type='submit' value='submit' />
+	{% if error %}
+	    <br />{{error}}
+	{% endif %}
+    </form>
+{% endblock %}
+
+
+
+<!--html>
+    <head>
+	<title>Edit Group</title>
+    </head>
+
+    <body>
+	<form action="." method="post"> {% csrf_token %}
+	    {%for group in groupObj %}
+		<tr>
+		    <td>Name : </td>
+		    <td><input type='text' name='name' value='{{group.name}}' class="validate[required]" /></td>
+		    <input type='hidden' name='created_date' value='{{group.created_date}}' />
+		</tr>
+	    {% endfor %}
+		<input type='submit' value='submit' />
+	</form>
+    </body>
+</html-->

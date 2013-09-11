@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Add Group{% endblock %}
+
+{% block script %}
+	<script type="text/javascript">
+            $(document).ready(function() {
+          	$("#groupForm").validationEngine();
+            });
+	</script>
+{% endblock %}
+
+{% block body %}
+    <h1>Add Group</h1>
+    <br />
+
+    <form action="." method="POST" id="groupForm"> {% csrf_token %}
+	Name :  <input type='text' name='groupname' id='id_groupname' class="validate[required]" />
+	<input type='hidden' name='created_date' value='{{created_date}}' />
+	<input type='submit' value='submit' />
+	{% if error %}
+	    <br />{{error}}
+	{% endif %}
+    </form>
+	    
+{% endblock %}
+
+
+
+<!--html>
+    <head>
+	<title>Add Group</title>
+    </head>
+
+    <body>
+	<form action="." method="post" enctype="multipart/form-data"> {% csrf_token %}
+		<tr>
+		    <td>Name : </td>
+		    <td><input type='text' name='name' value='' /></td>
+		    <input type='hidden' name='created_date' value='{{created_date}}' />
+		</tr>
+		<input type='submit' value='submit' />
+	</form>
+    </body>
+</html-->

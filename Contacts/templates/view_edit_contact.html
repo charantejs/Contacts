@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}Edit Contact{% endblock %}
+
+{% block script %}
+	<script type="text/javascript">
+            $(document).ready(function() {
+          	$("#contactForm").validationEngine();
+            });
+    </script>
+{% endblock %}
+
+{% block body %}
+	<h1>Add Contact</h1>
+	<form action="." method="post" id='contactForm' enctype="multipart/form-data"> {% csrf_token %}
+	    <table>
+		{% if personObj %}
+
+		<tr>
+		    <td>Name : </td>
+		    <td> <input type='text' name='name' id='id_name' value='{{personObj.name}}' />
+		    </td>
+		</tr>
+
+		<tr>
+		    <td>Organisation : </td>
+		    <td><input type='text' name='organisation' value='{{personObj.organisation}}' /></td>
+		</tr>
+
+
+		{% for phone in phoneObj%}
+		<tr>
+		    <td>Phone Number : </td>
+		    <td><input type='text' name='phonenumber{{phone.id}}' id='id_phonenumber{{phone.id}}' value='{{phone.number}}' class="validate[required]" /></td>
+		    <td>
+			<select name='phonetype{{phone.id}}'>
+			    {% for value in phonetypes %}
+				{% if value == phone.phonetype %}
+				    <option value={{value}} selected>{{value}}</option>
+				{% else %}
+				    <option value={{value}}>{{value}}</option>
+				{% endif %}
+			    {% endfor %}
+			</select>
+		    </td>
+		</tr>
+		{% endfor %}
+		
+		{% for email in emailObj %}
+		<tr>
+		    <td>Email : </td>
+		    <td><input type='email' name='email{{email.id}}' value='{{email.email}}' /></td>
+		    <td>
+			<select name='typeofemail{{email.id}}'>
+			    {% for value in emailtypes %}
+				{% if value == email.emailtype %}
+					<option value={{value}} selected>{{value}}</option>
+				{% else %}
+					<option value={{value}}>{{value}}</option>
+				{% endif %}
+			    {% endfor %}
+			</select>
+		    </td>
+		</tr>
+		{% endfor %}
+
+		{% for event in eventObj %}
+		<tr>
+		    <td>Events : </td>
+		    <td><input type='date' name='dateofevent{{event.id}}' value="{{event.eventdate|date:'Y-m-d'}}" /></td>
+		    <td>
+			<select name='event{{event.id}}'>
+			    {% for value in eventtypes %}
+				{% if value == event.eventname %}
+				<option value={{value}} selected>{{value}}</option>
+				{% else %}
+					<option value={{value}}>{{value}}</option>
+				{% endif %}
+			    {% endfor %}
+			</select>
+		    </td>
+		</tr>
+		{% endfor %}
+
+
+		<tr>
+		    <td>Relation : </td>
+		    <td>{{updatePersonForm.relation}} &nbsp; &nbsp; &nbsp;
+			<a href='#' onclick="window.open('/phonebook/add-relationship/','targetWindow','scrollbars=yes,resizable=yes,width=400,height=150')">add relationship<a/></td> 
+		    <td>{{updatePersonForm.relation.errors}}</td>
+		</tr>
+		<tr>
+		    <td>Groups : </td>
+		    <td>{{updatePersonForm.groups}} &nbsp; &nbsp; &nbsp; 
+			<a href='#' onclick="window.open('/phonebook/add-group/','targetWindow','scrollbars=yes,resizable=yes,width=400,height=150')">add group<a/>&nbsp; &nbsp; &nbsp;
+			<a href='/phonebook/display-groups/' target=_blank>view groups<a/></td> <td>{{updatePersonForm.groups.errors}}</td>
+		</tr>
+
+	{% else %}
+	    No data to display
+	{% endif %}
+		
+
+
+	    </table>
+	    <input type="submit" value="Submit" id="submit" />
+	</form>
+{% endblock %}
+
+
+			    

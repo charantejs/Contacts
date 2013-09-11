@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Display Contacts{% endblock %}
+
+{% block css %}<link rel="stylesheet" type="text/css" href="/css/jquery.autocomplete.css">{% endblock %}
+
+{% block script %}
+	<script type="text/javascript" src="/scripts/autocomplete.js"></script>
+	<script type="text/javascript">
+        $(document).ready(function() {
+          $("#searchForm").validationEngine();
+        });
+
+        $(function(){
+          setAutoComplete("contactSearchField", "Results", "/phonebook/search/?query=");
+        });
+    </script>
+{% endblock %}
+
+
+{% block body %}
+    <h1>Search: <h1>	
+    <form method="POST" id="searchForm" action="/phonebook/search/">{% csrf_token %}
+	<input type="text" name="query" id="contactSearchField" class="validate[required]" autocomplete=off />
+	<input type="submit" value="Submit" id="submit" />
+    </form>
+    <br />
+
+    <h1>Display Contacts</h1>
+    <table>
+	{% for person in persons %}
+	    <tr>
+		<td>{{forloop.counter}} . &nbsp;</td> <td>&nbsp;{{person.name}} &nbsp;</td> 
+		<td>&nbsp;<a href='/phonebook/view-edit-contact/{{person.id}}/'>View Contact</a></td>
+		<td>&nbsp;<a href='' onclick="window.open('/phonebook/delete-contact/{{person.id}}/','targetWindow','scrollbars=yes,resizable=yes,width=300,height=100')">Delete Contact</a></td>
+	    </tr>
+	    
+	{% empty %}
+	    <tr><td>No Contacts to Display</td></tr>
+	{% endfor %}
+    </table>
+{% endblock %}
+
+
+<!--html>
+    <head>
+	<title> View Contacts </title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="/css/validationEngine.jquery.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="/css/jquery.autocomplete.css">
+
+    <script type="text/javascript" src="/scripts/jquery-latest.js"></script>
+    <script type="text/javascript" src="/scripts/jquery.validationEngine.js"></script>
+    <script type="text/javascript" src="/scripts/jquery.validationEngine-en.js"></script>
+    <script type="text/javascript" src="/scripts/autocomplete.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+          $("#searchForm").validationEngine();
+        });
+
+        $(function(){
+          setAutoComplete("contactSearchField", "Results", "/phonebook/search/?query=");
+        });
+    </script>
+
+    </head>
+    <body>
+    <h1>Search:
+        <form method="GET" id="searchForm" action="/phonebook/search/">{% csrf_token %}
+            <input type="text" name="query" id="contactSearchField" class="validate[required]" autocomplete=off />
+            <input type="submit" value="Submit" id="submit" />
+        </form>
+    </h1>
+
+	<div></div>
+	{% for person in persons %}
+	   <div> {{person.name}} &nbsp; &nbsp;<a href='/phonebook/view-edit/{{person.id}}/'>View Contact</a></div>
+	{% empty %}
+	    No Contacts to Display
+	{% endfor %}
+    </body>
+</html-->
+

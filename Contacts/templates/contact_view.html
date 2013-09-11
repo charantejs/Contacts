@@ -1,0 +1,12 @@
+<html>
+    <head>
+	<title> View Contacts </title>
+    </head>
+    <body>
+	{% for person in persons %}
+	   <li> {{person.name}} </li>
+	   <li> {{person.number}} </li>
+	{% endfor %}
+    </body>
+</html>
+
