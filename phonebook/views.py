@@ -57,8 +57,8 @@ def add_contact(request):
 			emailObj.save()
 
 		    elif key.startswith('dateofevent') and request.POST[key]:
-		        eventdate = request.POST['dateofevent'+key.split('event')[1]] 
-		        eventObj = Event(eventname=request.POST[key],eventdate = eventdate,person=personObj,created_date=current_time)
+		        eventname = request.POST['event'+key.split('dateofevent')[1]] 
+		        eventObj = Event(eventname=eventname,eventdate = request.POST[key],person=personObj,created_date=current_time)
 	    		eventObj.save()
 
 	        transaction.commit()
@@ -75,6 +75,7 @@ def add_contact(request):
 
 def view_edit_contact(request,person_id):
     try:
+	
     	personObj = Person.objects.get(id = person_id)
     	phoneObj = PhoneNumber.objects.filter(person__id=person_id)
     	emailObj = Email.objects.filter(person__id=person_id)
@@ -109,14 +110,14 @@ def view_edit_contact(request,person_id):
 			    Email.objects.filter(id=email_id).delete()
 
 		    elif key.startswith('dateofevent'):
-			event_id = key.split('event')[1]
-			eventdate = request.POST['dateofevent'+str(event_id)]
+			event_id = key.split('dateofevent')[1]
+			eventname = request.POST['event'+str(event_id)]
 			if request.POST[key]:
-			    upeventObj = Event.objects.filter(id=event_id,person=personObj) 
+			    upeventObj = Event.objects.filter(id=event_id,person=personObj)
 			    if not upeventObj:
-				eventObj = Event(eventname=request.POST[key],eventdate = eventdate,person=personObj,created_date=current_time)
+				eventObj = Event(eventname=eventname,eventdate = request.POST[key],person=personObj,created_date=current_time)
 	    			eventObj.save()
-		            upeventObj.update(eventname=request.POST[key],eventdate = eventdate,modified_date=current_time)
+		            upeventObj.update(eventname=eventname,eventdate = request.POST[key],modified_date=current_time)
 	    		else:
 			    Event.objects.filter(id=event_id).delete()
 
