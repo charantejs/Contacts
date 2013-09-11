@@ -56,7 +56,7 @@ def add_contact(request):
 		        emailObj = Email(email=request.POST[key],emailtype=emailtype,person=personObj,created_date=current_time)
 			emailObj.save()
 
-		    elif key.startswith('event') and request.POST[key]:
+		    elif key.startswith('dateofevent') and request.POST[key]:
 		        eventdate = request.POST['dateofevent'+key.split('event')[1]] 
 		        eventObj = Event(eventname=request.POST[key],eventdate = eventdate,person=personObj,created_date=current_time)
 	    		eventObj.save()
@@ -108,7 +108,7 @@ def view_edit_contact(request,person_id):
 			else:
 			    Email.objects.filter(id=email_id).delete()
 
-		    elif key.startswith('event'):
+		    elif key.startswith('dateofevent'):
 			event_id = key.split('event')[1]
 			eventdate = request.POST['dateofevent'+str(event_id)]
 			if request.POST[key]:
