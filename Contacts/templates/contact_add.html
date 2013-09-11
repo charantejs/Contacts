@@ -6,31 +6,27 @@
             $(document).ready(function() {
           	$("#contactForm").validationEngine();
 		
-		
 		$(".addphonerow").click(function(ele){
-                        console.dir(ele.id)
-                        var id = $(ele).attr('id');
-                        alert(id)
-			addphone = "<tr id='addphonenumber'><td>Phone Number : </td><td><input type='text' name='phonenumber'"+(id+1)+"' /></td> <td><select name='phonetype'"+(id+1)+"'>{% for value in phonetypes %}<option value={{value}}>{{value}}</option>{% endfor %}</select></td><td><input type='button' value='Add' id='1' class='addphonerow' /></td></tr>"
+                        console.dir(ele.currentTarget)
+                        var id = parseInt($(".addphonerow").attr('id'), 10)+1
+			addphone = "<tr><td>Phone Number : </td><td><input type='text' name='phonenumber"+(id)+"' /></td> <td><select name='phonetype"+(id)+"'>{% for value in phonetypes %}<option value={{value}}>{{value}}</option>{% endfor %}</select></td><td><input type='button' value='Add' id='+(id)+' class='addphonerow' /></td></tr>"
 			$(addphone).insertAfter($(this).parent().parent());
 		});
 
 		$(".addemailrow").click(function(ele){
 			console.dir(ele.id)
-                        var id = $(ele).attr('id');
-                        alert(id)
-			addemail = "<tr id='addemail'><td>Email : </td><td><input type='email' name='email'"+(id+1)+"' /></td><td><select name='typeofemail'"+(id+1)
+                        var id = parseInt($(".addemailrow").attr('id'), 10)+1
+			addemail = "<tr><td>Email : </td><td><input type='email' name='email"+(id)+"' /></td><td><select name='typeofemail"+(id)
 +"'> {% for value in emailtypes %}<option value={{value}}>{{value}}</option>{% endfor %}</select></td>	<td><input type='button' value='Add' id='0' class='addemailrow'/></td></tr>"
 			$(addemail).insertAfter($(this).parent().parent());
 		});	
 
 		$(".addeventrow").click(function(ele){
 			console.dir(ele.id)
-                        var id = $(ele).attr('id');
-                        alert(id)
-			addevent = "<tr id='addevent' ><td>Events : </td><td><input type='date' name='dateofevent'"+(id+1)+"' /></td><td><select name='event'"+(id+1)+"'>{% for value in eventtypes %}<option value={{value}}>{{value}}</option>{% endfor %}</select></td><td><input type='button' value='Add' id='0' class='addeventrow'/></td></tr>"
+                        var id = parseInt($(".addeventrow").attr('id'), 10)+1
+			addevent = "<tr><td>Events : </td><td><input type='date' name='dateofevent"+(id)+"' /></td><td><select name='event"+(id)+"'>{% for value in eventtypes %}<option value={{value}}>{{value}}</option>{% endfor %}</select></td><td><input type='button' value='Add' id='0' class='addeventrow'/></td></tr>"
 			$(addevent).insertAfter($(this).parent().parent());
-		});		
+		});
 
             });
     </script>
@@ -76,7 +72,7 @@
 			    {% endfor %}
 			</select>
 		    </td>
-		    <td><input type='button' value='Add' id='0' class="addemailrow"/></td>
+		    <td><input type='button' value='Add' id=1 class="addemailrow"/></td>
 		</tr>
 
 		<tr id='addevent'>
@@ -89,7 +85,7 @@
 			    {% endfor %}
 			</select>
 		    </td>
-		    <td><input type='button' value='Add' id='0' class="addeventrow"/></td>
+		    <td><input type='button' value='Add' id=1 class="addeventrow"/></td>
 		</tr>
 
 		<tr>
@@ -184,6 +180,30 @@
 			<a href='' onclick="window.open('/phonebook/add-group/','targetWindow','scrollbars=yes,resizable=yes,width=500,height=400')">add group<a/>&nbsp; &nbsp; &nbsp;
 			<a href='/phonebook/display-groups/' target=_blank>view groups<a/></td> <td>{{addPersonForm.groups.errors}}</td>
 		</tr>
+
+
+
+
+		<!--tr>
+		    <td>Name : </td>
+		    <td> {{addPersonForm.name}}</td> <td>{{addPersonForm.name.errors}}</td>
+		</tr>
+		<tr>
+		    <td>Image : </td>
+		    <td>{{addPersonForm.image}}</td> <td>{{addPersonForm.image.errors}}</td>
+		</tr>
+		<tr>
+		    <td>Organisation : </td>
+		    <td>{{addPersonForm.organisation}}</td> <td>{{addPersonForm.image.errors}}</td>
+		</tr>
+		<tr>
+		    <td>Relation : </td>
+		    <td>{{addPersonForm.relation}}</td> <td>{{addPersonForm.relation.errors}}</td>
+		</tr>
+		<tr>
+		    <td>Groups : </td>
+		    <td>{{addPersonForm.groups}}</td> <td>{{addPersonForm.groups.errors}}</td>
+		</tr-->
 
 	    </table>
 	    <input type="submit" value="Submit" />
